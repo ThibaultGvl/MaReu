@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = binding.fab;
         ApiService apiService = DI.getMeetingApiService();
-        RecyclerView recyclerView = binding.fragmentMainRecyclerView;
+        RecyclerView recyclerView = binding.mainRecyclerView;
         List<Meeting> mMeetings = apiService.getMeetings();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         MeetingRecyclerViewAdapter adapter = new MeetingRecyclerViewAdapter(mMeetings);
