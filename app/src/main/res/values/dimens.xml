@@ -1,3 +1,8 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="ImagePaddingBtm">10dp</dimen>
+    <dimen name="ImagePaddingTp">10dp</dimen>
+    <dimen name="TextSpace">5dp</dimen>
+    <dimen name="IBPaddingEnd">15dp</dimen>
 </resources>

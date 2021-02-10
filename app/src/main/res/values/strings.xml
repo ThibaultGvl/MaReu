@@ -16,5 +16,5 @@
     <string name="CreateRoom">Séléctionnez votre Salle de Réunion</string>
     <string name="CreateName">Nommez votre Réunion</string>
     <string name="CreateHour">Séléctionnez le Créneau de votre Réunion</string>
-    <string name="CreateParticipants">Entrez le Nom des Participants</string>
+    <string name="CreateParticipants">Séléctionnez les Participants</string>
 </resources>

@@ -21,7 +21,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     private final List<Meeting> mMeetings;
 
-    private ApiService mApiService;
+    public ApiService mApiService;
 
     private FragmentMeetingItemBinding binding;
 

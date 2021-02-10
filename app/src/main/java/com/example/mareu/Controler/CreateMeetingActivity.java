@@ -34,7 +34,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, mRooms);
         meetingRoom.setAdapter(adapter);
         TextInputLayout meetingName = binding.meetingNameLyt;
-        TextInputLayout meetingParticipants = binding.meetingParticipantsLyt;
+        AutoCompleteTextView meetingParticipants = binding.meetingParticipantsInput;
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mParticipants);
+        meetingParticipants.setAdapter(adapter1);
         AutoCompleteTextView meetingHour = binding.meetingHourInput;
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mHours);
         meetingHour.setAdapter(mAdapter);
@@ -45,7 +47,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
            public void onClick(View v) {
                    Meeting meeting = new Meeting(
                            Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
-                           Objects.requireNonNull(meetingParticipants.getEditText()).getText().toString(),
+                           meetingParticipants.toString(),
                            meetingHour.toString(),
                            meetingRoom.toString()
                    );
@@ -63,6 +65,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
             "5h","5h45","6h30","7h15","8h","8h45","9h30","10h15","11h","11h45","12h30","13h15","14h","14h45","15h30","16h15","17h","17h45","18h30","19h15","20h","20h45","21h30","22h15","23h","23h45"
     };
     private static final String[] mParticipants = new String[] {
-            ""
+            "Mario@lamzone.com", "Peach@lamzone.com", "Luigi@lamzone.com", "Bowser@lamzone.com", "Wario@lamzone.com", "Waluigi@lamzone.com", "Koopa@lamzone.com", "Goomba@lamzone.com", "Daisy@lamzone.com"
     };
 }

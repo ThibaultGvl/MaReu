@@ -26,10 +26,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMeetingListBinding binding;
+    
+    private ApiService apiService;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        com.example.mareu.databinding.ActivityMeetingListBinding binding = ActivityMeetingListBinding.inflate(getLayoutInflater());
+        ActivityMeetingListBinding binding = ActivityMeetingListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
