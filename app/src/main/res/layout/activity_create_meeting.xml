@@ -24,12 +24,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/meeting_participants_lyt"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp">
+            android:paddingTop="@dimen/input_padding">
 
-            <AutoCompleteTextView
+            <MultiAutoCompleteTextView
                 android:id="@+id/meeting_participants_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,10 +40,10 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/meeting_hour_lyt"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp">
+            android:paddingTop="@dimen/input_padding">
 
             <AutoCompleteTextView
                 android:id="@+id/meeting_hour_input"
@@ -56,10 +56,10 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/meeting_room_lyt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense.ExposedDropdownMenu"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="15dp">
+        android:paddingTop="@dimen/input_padding">
 
         <AutoCompleteTextView
             android:id="@+id/meeting_room_input"
@@ -76,5 +76,5 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/CreateMeeting"
-            android:layout_marginTop="50dp"/>
+            android:layout_marginTop="@dimen/create_btn_padding"/>
 </LinearLayout>

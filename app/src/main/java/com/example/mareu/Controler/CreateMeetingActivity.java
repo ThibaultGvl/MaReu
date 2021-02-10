@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.mareu.Model.Meeting;
@@ -30,32 +31,33 @@ public class CreateMeetingActivity extends AppCompatActivity {
         mApiService = DI.getMeetingApiService();
         binding = ActivityCreateMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        AutoCompleteTextView meetingRoom = binding.meetingRoomInput;
-        ArrayAdapter<String> adapter = new ArrayAdapter<> (this, android.R.layout.simple_dropdown_item_1line, mRooms);
+        AutoCompleteTextView meetingRoom = (AutoCompleteTextView) binding.meetingRoomInput;
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, mRooms);
         meetingRoom.setAdapter(adapter);
         TextInputLayout meetingName = binding.meetingNameLyt;
-        AutoCompleteTextView meetingParticipants = binding.meetingParticipantsInput;
+        MultiAutoCompleteTextView meetingParticipants = (MultiAutoCompleteTextView) binding.meetingParticipantsInput;
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mParticipants);
         meetingParticipants.setAdapter(adapter1);
-        AutoCompleteTextView meetingHour = binding.meetingHourInput;
+        meetingParticipants.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+        AutoCompleteTextView meetingHour = (AutoCompleteTextView) binding.meetingHourInput;
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mHours);
         meetingHour.setAdapter(mAdapter);
         Button createBtn = binding.createBtn;
         setContentView(view);
         createBtn.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-                   Meeting meeting = new Meeting(
-                           Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
-                           meetingParticipants.toString(),
-                           meetingHour.toString(),
-                           meetingRoom.toString()
-                   );
-                   mApiService.createMeeting(meeting);
-                   Toast.makeText(v.getContext(),"Votre Réunion a bien été créée !",Toast.LENGTH_SHORT).show();
-                   finish();
-           }
-       });
+            @Override
+            public void onClick(View v) {
+                    Meeting meeting = new Meeting(
+                            Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
+                            meetingParticipants.toString(),
+                            meetingHour.toString(),
+                            meetingRoom.toString()
+                    );
+                    mApiService.createMeeting(meeting);
+                    Toast.makeText(v.getContext(), "Votre Réunion a bien été créée !", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+        });
     }
 
     private static final String[] mRooms = new String[] {

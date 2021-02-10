@@ -1,8 +1,10 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="ImagePaddingBtm">10dp</dimen>
-    <dimen name="ImagePaddingTp">10dp</dimen>
-    <dimen name="TextSpace">5dp</dimen>
-    <dimen name="IBPaddingEnd">15dp</dimen>
+    <dimen name="image_padding_btm">10dp</dimen>
+    <dimen name="image_padding_tp">10dp</dimen>
+    <dimen name="text_space">5dp</dimen>
+    <dimen name="ib_padding_end">15dp</dimen>
+    <dimen name="input_padding">15dp</dimen>
+    <dimen name="create_btn_padding">50dp</dimen>
 </resources>
