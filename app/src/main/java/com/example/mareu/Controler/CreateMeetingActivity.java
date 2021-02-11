@@ -48,10 +48,10 @@ public class CreateMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                     Meeting meeting = new Meeting(
+                            meetingHour.getText().toString(),
                             Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
-                            meetingParticipants.toString(),
-                            meetingHour.toString(),
-                            meetingRoom.toString()
+                            meetingParticipants.getText().toString(),
+                            meetingRoom.getText().toString()
                     );
                     mApiService.createMeeting(meeting);
                     Toast.makeText(v.getContext(), "Votre Réunion a bien été créée !", Toast.LENGTH_SHORT).show();
