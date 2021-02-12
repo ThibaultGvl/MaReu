@@ -13,7 +13,9 @@ import com.example.mareu.databinding.ActivityMeetingListBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuItemImpl;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMeetingListBinding binding;
     
     private ApiService apiService;
+
+    private MenuItemImpl Menu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,20 +67,20 @@ public class MainActivity extends AppCompatActivity {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
             }
         });
     }
 
-    private void updateList() {
-
+    public void showTimePickerDialog(MenuItem item) {
+        DialogFragment newFragment = new TimePicker();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    return true;
     }
 
     @Override
@@ -85,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        showTimePickerDialog(item);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
