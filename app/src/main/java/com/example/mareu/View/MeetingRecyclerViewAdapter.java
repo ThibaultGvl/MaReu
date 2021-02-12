@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mareu.Controler.MainActivity;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.DI;
@@ -22,7 +23,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     private final List<Meeting> mMeetings;
 
-    public ApiService mApiService;
+    public ApiService mApiService = DI.getMeetingApiService();
 
     private FragmentMeetingItemBinding binding;
 
@@ -31,19 +32,20 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     @NonNull
     @Override
     public MeetingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mApiService = DI.getMeetingApiService();
         binding = (FragmentMeetingItemBinding.inflate(LayoutInflater.from(parent.getContext())));
         return new MeetingViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(MeetingViewHolder holder, int position) {
+    public void onBindViewHolder(final MeetingViewHolder holder, int position) {
+     Meeting meeting = mMeetings.get(position);
      holder.updateWithMeeting(this.mMeetings.get(position));
      holder.deletebtn.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             mApiService.deleteMeeting(mMeetings.get(position));
+             mApiService.deleteMeeting(meeting);
              Toast.makeText(v.getContext(), "Cette Réunion a bien été supprimée !", Toast.LENGTH_SHORT).show();
+             notifyItemRemoved(position);
          }
      });
     }

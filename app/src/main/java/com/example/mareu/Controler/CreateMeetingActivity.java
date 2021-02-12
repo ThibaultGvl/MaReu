@@ -3,6 +3,8 @@ package com.example.mareu.Controler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -36,6 +38,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         meetingRoom.setAdapter(adapter);
         TextInputLayout meetingName = binding.meetingNameLyt;
         MultiAutoCompleteTextView meetingParticipants = (MultiAutoCompleteTextView) binding.meetingParticipantsInput;
+        meetingParticipants.setThreshold(1);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mParticipants);
         meetingParticipants.setAdapter(adapter1);
         meetingParticipants.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
@@ -43,15 +46,25 @@ public class CreateMeetingActivity extends AppCompatActivity {
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mHours);
         meetingHour.setAdapter(mAdapter);
         Button createBtn = binding.createBtn;
+        meetingRoom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+            @Override
+            public void afterTextChanged(Editable s) {
+                createBtn.setEnabled(s.length() > 0);
+            }
+        });
         setContentView(view);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                     Meeting meeting = new Meeting(
-                            meetingHour.getText().toString(),
+                            Objects.requireNonNull(meetingHour.getText().toString()),
                             Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
-                            meetingParticipants.getText().toString(),
-                            meetingRoom.getText().toString()
+                            Objects.requireNonNull(meetingParticipants.getText().toString()),
+                            Objects.requireNonNull(meetingRoom.getText().toString())
                     );
                     mApiService.createMeeting(meeting);
                     Toast.makeText(v.getContext(), "Votre Réunion a bien été créée !", Toast.LENGTH_SHORT).show();

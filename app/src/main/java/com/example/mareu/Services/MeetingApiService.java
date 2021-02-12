@@ -21,7 +21,5 @@ public class MeetingApiService implements ApiService {
     }
 
     @Override
-    public void deleteMeeting(Meeting meeting) {
-        mMeetings.remove(meeting);
-    }
+    public void deleteMeeting(Meeting meeting) {mMeetings.remove(meeting);}
 }
