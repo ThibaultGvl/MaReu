@@ -4,11 +4,12 @@ import com.example.mareu.Model.Meeting;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.MeetingGenerator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingApiService implements ApiService {
 
-    private final List<Meeting> mMeetings = MeetingGenerator.generateMeetings();
+    private final List<Meeting> mMeetings = new ArrayList<>();
 
     @Override
     public List<Meeting> getMeetings() {
