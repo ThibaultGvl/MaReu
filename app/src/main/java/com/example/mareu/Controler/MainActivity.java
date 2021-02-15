@@ -31,12 +31,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMeetingListBinding binding;
-    
-    private ApiService apiService;
-
-    private MenuItemImpl Menu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         FloatingActionButton fab = binding.fab;
-        ApiService apiService = DI.getMeetingApiService();
         RecyclerView recyclerView = binding.mainRecyclerView;
+        ApiService apiService = DI.getMeetingApiService();
         List<Meeting> mMeetings = apiService.getMeetings();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         MeetingRecyclerViewAdapter adapter = new MeetingRecyclerViewAdapter(mMeetings);
@@ -63,13 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void configureSwipeRefreshLayout() {
+    /*private void configureSwipeRefreshLayout() {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
             }
         });
-    }
+    }*/
 
     public void showTimePickerDialog(MenuItem item) {
         DialogFragment newFragment = new TimePicker();

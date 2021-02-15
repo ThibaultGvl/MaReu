@@ -8,11 +8,8 @@
     <string name="previous">Previous</string>
 
     <string name="CreateMeeting">Validez pour créer votre réunion</string>
-    <string name="Room">101</string>
-    <string name="Name">Name</string>
-    <string name="Hour">Hour</string>
+    <string name="Informations">Name - Hour - Room</string>
     <string name="Participants">Participants</string>
-    <string name="Dash">-</string>
     <string name="CreateRoom">Séléctionnez votre Salle de Réunion</string>
     <string name="CreateName">Nommez votre Réunion</string>
     <string name="CreateHour">Séléctionnez le Créneau de votre Réunion</string>

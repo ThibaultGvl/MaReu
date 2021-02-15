@@ -77,7 +77,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
             "101", "102", "103", "104", "105", "106", "107", "108", "109", "110"
     };
     private static final String[] mHours = new String[] {
-            "5h","5h45","6h30","7h15","8h","8h45","9h30","10h15","11h","11h45","12h30","13h15","14h","14h45","15h30","16h15","17h","17h45","18h30","19h15","20h","20h45","21h30","22h15","23h","23h45"
+            "5h00","5h45","6h30","7h15","8h00","8h45","9h30","10h15","11h00","11h45","12h30","13h15","14h00","14h45","15h30","16h15","17h00","17h45","18h30","19h15","20h00","20h45","21h30","22h15","23h","23h45"
     };
     private static final String[] mParticipants = new String[] {
             "Mario@lamzone.com", "Peach@lamzone.com", "Luigi@lamzone.com", "Bowser@lamzone.com", "Wario@lamzone.com", "Waluigi@lamzone.com", "Koopa@lamzone.com", "Goomba@lamzone.com", "Daisy@lamzone.com"
