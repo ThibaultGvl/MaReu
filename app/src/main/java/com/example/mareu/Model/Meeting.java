@@ -10,11 +10,14 @@ public class Meeting {
 
     private String Room;
 
-    public Meeting(String Hour, String Name, String Participants, String Room) {
+    private int Date;
+
+    public Meeting(String Hour, String Name, String Participants, String Room, int Date) {
         this.Hour = Hour;
         this.Name = Name;
         this.Participants = Participants;
         this.Room = Room;
+        this.Date = Date;
     }
 
     public String getHour() {return Hour;}
@@ -32,4 +35,8 @@ public class Meeting {
     public String getRoom() {return Room;}
 
     public void setRoom(String Room) {this.Room = Room;}
+
+    public int getDate() {return Date;}
+
+    public void setDate() {this.Date = Date;}
 }

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Ma Réu</string>
-    <string name="action_settings">Trier les Réunions par Heure</string>
+    <string name="action_settings">Filtrer les Réunions par Date</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -14,4 +14,5 @@
     <string name="CreateName">Nommez votre Réunion</string>
     <string name="CreateHour">Séléctionnez le Créneau de votre Réunion</string>
     <string name="CreateParticipants">Séléctionnez les Participants</string>
+    <string name="create_date">Séléctionnez la Date de votre Réunion</string>
 </resources>

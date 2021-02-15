@@ -50,6 +50,14 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/input_padding">
 
+            <AutoCompleteTextView
+                android:id="@+id/meeting_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:ems="10"
+                android:hint="@string/create_date"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
