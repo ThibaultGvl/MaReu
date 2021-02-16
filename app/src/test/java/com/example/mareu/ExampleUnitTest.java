@@ -1,6 +1,16 @@
 package com.example.mareu;
 
+import com.example.mareu.Model.Meeting;
+import com.example.mareu.Services.ApiService;
+import com.example.mareu.Services.DI;
+import com.example.mareu.Services.MeetingGenerator;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -9,9 +19,19 @@ import static org.junit.Assert.*;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@RunWith(JUnit4.class)
 public class ExampleUnitTest {
+
+    private ApiService mService;
+
+    @Before
+    public void setUp() {mService = DI.getNewInstanceApiService();}
+
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void createMeetingWithSuccess() {
+        List<Meeting> meetings = mService.getMeetings();
+        List<Meeting> expectedMeetings = MeetingGenerator.sMeetings;
+        //assertTrue(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
     }
+
 }
