@@ -3,6 +3,7 @@ package com.example.mareu.Controler;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.example.mareu.Services.DI;
 import com.example.mareu.databinding.ActivityCreateMeetingBinding;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 
@@ -63,7 +66,17 @@ public class CreateMeetingActivity extends AppCompatActivity {
         meetingDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(view);
+                final Calendar c = Calendar.getInstance();
+                int year = c.get(Calendar.YEAR);
+                int month = c.get(Calendar.MONTH);
+                int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+                DatePickerDialog dpd = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        binding.meetingDate.setText(dayOfMonth + "/" + (month+1)+ "/" + year);
+                    }
+                },year, month, dayOfMonth);
+                dpd.show();
             }
         });
         createBtn.setOnClickListener(new View.OnClickListener() {
@@ -74,8 +87,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                             Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
                             Objects.requireNonNull(meetingParticipants.getText().toString()),
                             Objects.requireNonNull(meetingRoom.getText().toString()),
-                            //Récupérer Date avec datepicker
-                            21/12/21
+                            meetingDate.getListSelection()
                     );
                     mApiService.createMeeting(meeting);
                     Toast.makeText(v.getContext(), "Votre Réunion a bien été créée !", Toast.LENGTH_SHORT).show();
@@ -84,10 +96,10 @@ public class CreateMeetingActivity extends AppCompatActivity {
         });
     }
 
-    public void showDatePickerDialog(View v) {
+    /*public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePicker();
         newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
+    }*/
 
     private static final String[] mRooms = new String[] {
             "101", "102", "103", "104", "105", "106", "107", "108", "109", "110"

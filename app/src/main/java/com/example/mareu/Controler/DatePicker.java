@@ -7,16 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
-
-import com.example.mareu.databinding.ActivityCreateMeetingBinding;
-
 import java.util.Calendar;
 
 public class DatePicker extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
-
-    private ActivityCreateMeetingBinding binding;
-
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -30,6 +24,5 @@ public class DatePicker extends DialogFragment
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
         int mDate = dayOfMonth + '/' + (month+1) + '/' + year;
-        binding.meetingDate.setText(mDate);
     }
 }

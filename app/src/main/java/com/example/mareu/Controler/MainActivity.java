@@ -31,6 +31,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMeetingListBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,13 +58,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /*private void configureSwipeRefreshLayout() {
+    private void configureSwipeRefreshLayout() {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
             }
         });
-    }*/
+    }
 
     public void showDatePickerDialog(MenuItem item) {
         DialogFragment newFragment = new DatePicker();
