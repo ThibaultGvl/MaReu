@@ -3,6 +3,7 @@ package com.example.mareu.Controler;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -23,6 +24,7 @@ public class DatePicker extends DialogFragment
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-        int mDate = dayOfMonth + '/' + (month+1) + '/' + year;
+        String date = dayOfMonth + "/" + (month+1) + "/" + year;
+        Toast.makeText(getContext(), "Voici les réunions ayant lieu le " + date, Toast.LENGTH_SHORT).show();
     }
 }

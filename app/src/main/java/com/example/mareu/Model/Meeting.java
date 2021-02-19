@@ -1,5 +1,9 @@
 package com.example.mareu.Model;
 
+import android.text.Editable;
+
+import java.util.Date;
+
 public class Meeting {
 
     private String Hour;
@@ -10,13 +14,22 @@ public class Meeting {
 
     private String Room;
 
-    private int Date;
+    /*private int Day;
 
-    public Meeting(String Hour, String Name, String Participants, String Room, int Date) {
+    private int Month;
+
+    private int Year;*/
+
+    private String Date;
+
+    public Meeting(String Hour, String Name, String Participants, String Room, String Date/*int Day, int Month, int Year*/) {
         this.Hour = Hour;
         this.Name = Name;
         this.Participants = Participants;
         this.Room = Room;
+        /*this.Day = Day;
+        this.Month = Month;
+        this.Year = Year;*/
         this.Date = Date;
     }
 
@@ -36,7 +49,19 @@ public class Meeting {
 
     public void setRoom(String Room) {this.Room = Room;}
 
-    public int getDate() {return Date;}
+    /*public int getDay() { return Day;}
+
+    public void setDay() {this.Day = Day;}
+
+    public int getMonth() {return  Month;}
+
+    public void setMonth() {this.Month = Month;}
+
+    public int getYear() {return Year;}
+
+    public void setYear() {this.Year = Year;}*/
+
+    public String getDate() {return Date;}
 
     public void setDate() {this.Date = Date;}
 }

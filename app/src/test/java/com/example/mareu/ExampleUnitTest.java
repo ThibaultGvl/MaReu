@@ -30,7 +30,6 @@ public class ExampleUnitTest {
     @Test
     public void createMeetingWithSuccess() {
         List<Meeting> meetings = mService.getMeetings();
-        List<Meeting> expectedMeetings = MeetingGenerator.sMeetings;
         //assertTrue(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
     }
 

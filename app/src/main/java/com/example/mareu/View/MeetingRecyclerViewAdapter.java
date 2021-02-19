@@ -64,7 +64,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         }
 
         public void updateWithMeeting(@NonNull Meeting meeting){
-            binding.meetingsInformation.setText(meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom());
+            binding.meetingsInformation.setText(meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom() + " - " + meeting.getDate());
             binding.meetingParticipants.setText(meeting.getParticipants());
         }
     }

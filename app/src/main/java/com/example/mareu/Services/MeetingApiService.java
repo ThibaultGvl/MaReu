@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MeetingApiService implements ApiService {
 
-    private final List<Meeting> mMeetings = new ArrayList<>();
+    private final List<Meeting> mMeetings = new ArrayList<>() ;
 
     @Override
     public List<Meeting> getMeetings() {

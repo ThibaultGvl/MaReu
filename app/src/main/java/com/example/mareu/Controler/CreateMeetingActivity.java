@@ -23,6 +23,7 @@ import com.example.mareu.databinding.ActivityCreateMeetingBinding;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 
@@ -31,6 +32,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
     private ApiService mApiService;
 
     private ActivityCreateMeetingBinding binding;
+
+    private int Date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 DatePickerDialog dpd = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        binding.meetingDate.setText(dayOfMonth + "/" + (month+1)+ "/" + year);
+                        String date = dayOfMonth + "/" + (month+1)+ "/" + year;
+                        binding.meetingDate.setText(date);
                     }
                 },year, month, dayOfMonth);
                 dpd.show();
@@ -87,7 +91,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                             Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
                             Objects.requireNonNull(meetingParticipants.getText().toString()),
                             Objects.requireNonNull(meetingRoom.getText().toString()),
-                            meetingDate.getListSelection()
+                            meetingDate.getText().toString()
                     );
                     mApiService.createMeeting(meeting);
                     Toast.makeText(v.getContext(), "Votre Réunion a bien été créée !", Toast.LENGTH_SHORT).show();
@@ -96,11 +100,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
         });
     }
 
-    /*public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePicker();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }*/
-
     private static final String[] mRooms = new String[] {
             "101", "102", "103", "104", "105", "106", "107", "108", "109", "110"
     };
@@ -108,6 +107,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
             "5h00","5h45","6h30","7h15","8h00","8h45","9h30","10h15","11h00","11h45","12h30","13h15","14h00","14h45","15h30","16h15","17h00","17h45","18h30","19h15","20h00","20h45","21h30","22h15","23h","23h45"
     };
     private static final String[] mParticipants = new String[] {
-            "Mario@lamzone.com", "Peach@lamzone.com", "Luigi@lamzone.com", "Bowser@lamzone.com", "Wario@lamzone.com", "Waluigi@lamzone.com", "Koopa@lamzone.com", "Goomba@lamzone.com", "Daisy@lamzone.com"
+            "Mario@lamzone.com", "Peach@lamzone.com", "Luigi@lamzone.com", "Bowser@lamzone.com", "Wario@lamzone.com", "Waluigi@lamzone.com", "Koopa@lamzone.com", "Goomba@lamzone.com", "Daisy@lamzone.com", "Yoshi@lamzone.com"
     };
 }

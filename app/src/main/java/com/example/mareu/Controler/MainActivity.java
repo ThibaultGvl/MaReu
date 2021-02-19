@@ -1,5 +1,6 @@
 package com.example.mareu.Controler;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.media.MediaExtractor;
 import android.os.Bundle;
@@ -25,13 +26,17 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMeetingListBinding binding;
+
+    private ApiService apiService = DI.getMeetingApiService();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                apiService.getMeetings().clear();
+                apiService.getMeetings();
             }
         });
     }
@@ -76,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
+        return true;
     }
 
     @Override
@@ -85,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        showDatePickerDialog(item);
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
