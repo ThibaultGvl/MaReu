@@ -12,6 +12,9 @@ import java.util.Calendar;
 
 public class DatePicker extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
+
+    private String date;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -24,7 +27,11 @@ public class DatePicker extends DialogFragment
 
     @Override
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-        String date = dayOfMonth + "/" + (month+1) + "/" + year;
+        date = dayOfMonth + "/" + (month+1) + "/" + year;
         Toast.makeText(getContext(), "Voici les réunions ayant lieu le " + date, Toast.LENGTH_SHORT).show();
+    }
+
+    public String getDate() {
+        return date;
     }
 }

@@ -28,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMeetingListBinding binding;
 
     private ApiService apiService = DI.getMeetingApiService();
+
+    private DatePicker mDatePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,21 @@ public class MainActivity extends AppCompatActivity {
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    public List<Meeting> getFilterMeetings(List<Meeting> meetings) {
+        meetings = apiService.getMeetings();
+        ArrayList<Meeting> result = new ArrayList<>();
+
+        for (Meeting meeting : meetings) {
+            if (meeting.getDate().equals(mDatePicker.getDate())) {
+                    result.add(meeting);
+            }
+                else {
+                    return null;
+            }
+        }
+        return result;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        getFilterMeetings(apiService.getMeetings());
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
