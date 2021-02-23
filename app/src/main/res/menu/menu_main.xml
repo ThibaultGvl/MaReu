@@ -3,9 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.mareu.Controler.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/filter_date"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/filter_hour"
         app:showAsAction="never"
         android:onClick="showDatePickerDialog"/>
+    <item
+        android:id="@+id/filter_room"
+        android:orderInCategory="100"
+        android:title="@string/filter_room"
+        app:showAsAction="never"
+        android:onClick="showRoomList"/>
+    <item
+        android:id="@+id/get_meetings"
+        android:orderInCategory="100"
+        android:title="@string/get_meetings"
+        app:showAsAction="never"
+        android:onClick="getAllMeetings"/>
+
 </menu>

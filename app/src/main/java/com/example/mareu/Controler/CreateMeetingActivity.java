@@ -29,7 +29,7 @@ import java.util.Objects;
 
 public class CreateMeetingActivity extends AppCompatActivity {
 
-    private ApiService mApiService;
+    private ApiService mApiService = DI.getMeetingApiService();
 
     private ActivityCreateMeetingBinding binding;
 

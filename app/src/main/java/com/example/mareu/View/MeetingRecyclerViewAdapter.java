@@ -1,31 +1,32 @@
 package com.example.mareu.View;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mareu.Controler.MainActivity;
+import com.example.mareu.Controler.DatePicker;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.DI;
 import com.example.mareu.databinding.FragmentMeetingItemBinding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder> {
 
-    private final List<Meeting> mMeetings;
+    private List<Meeting> mMeetings;
 
     public ApiService mApiService = DI.getMeetingApiService();
 
     private FragmentMeetingItemBinding binding;
+
+    private DatePicker mDatePicker;
 
     public MeetingRecyclerViewAdapter(List<Meeting> mMeetings) {this.mMeetings = mMeetings;}
 
@@ -55,6 +56,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         return this.mMeetings.size();
     }
 
+    public void setData (List<Meeting> meetings) {
+        mMeetings = meetings;
+        notifyDataSetChanged();
+    }
+
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
         private ImageButton deletebtn = binding.deleteBtn;
@@ -64,7 +70,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         }
 
         public void updateWithMeeting(@NonNull Meeting meeting){
-            binding.meetingsInformation.setText(meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom() + " - " + meeting.getDate());
+            String information  = meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom() + " - " + meeting.getDate();
+            binding.meetingsInformation.setText(information);
             binding.meetingParticipants.setText(meeting.getParticipants());
         }
     }

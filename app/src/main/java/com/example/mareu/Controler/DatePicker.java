@@ -8,12 +8,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.mareu.Model.Meeting;
+import com.example.mareu.Services.ApiService;
+import com.example.mareu.Services.DI;
+import com.example.mareu.View.MeetingRecyclerViewAdapter;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DatePicker extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
     private String date;
+
+    private MeetingRecyclerViewAdapter mRecyclerViewAdapter;
+
+    private ApiService apiService = DI.getMeetingApiService();
 
     @NonNull
     @Override

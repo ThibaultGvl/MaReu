@@ -2,6 +2,8 @@ package com.example.mareu.Model;
 
 import android.text.Editable;
 
+import com.example.mareu.Controler.DatePicker;
+
 import java.util.Date;
 
 public class Meeting {
@@ -14,23 +16,19 @@ public class Meeting {
 
     private String Room;
 
-    /*private int Day;
-
-    private int Month;
-
-    private int Year;*/
-
     private String Date;
 
-    public Meeting(String Hour, String Name, String Participants, String Room, String Date/*int Day, int Month, int Year*/) {
+    //private boolean Filter;
+
+    private DatePicker mDatePicker;
+
+    public Meeting(String Hour, String Name, String Participants, String Room, String Date/*, boolean Filter*/) {
         this.Hour = Hour;
         this.Name = Name;
         this.Participants = Participants;
         this.Room = Room;
-        /*this.Day = Day;
-        this.Month = Month;
-        this.Year = Year;*/
         this.Date = Date;
+        //this.Filter = Filter;
     }
 
     public String getHour() {return Hour;}
@@ -49,19 +47,21 @@ public class Meeting {
 
     public void setRoom(String Room) {this.Room = Room;}
 
-    /*public int getDay() { return Day;}
-
-    public void setDay() {this.Day = Day;}
-
-    public int getMonth() {return  Month;}
-
-    public void setMonth() {this.Month = Month;}
-
-    public int getYear() {return Year;}
-
-    public void setYear() {this.Year = Year;}*/
-
     public String getDate() {return Date;}
 
-    public void setDate() {this.Date = Date;}
+    public void setDate(String Date) {this.Date = Date;}
+
+    /*public boolean getFilter() {return Filter;}
+
+    public void setFilter(boolean Filter) {this.Filter = Filter;}
+
+    public boolean isFilter(Meeting meeting) {
+        if(meeting.getDate().equals(mDatePicker.getDate())) {
+            setFilter(true);
+        }
+        else {
+            setFilter(false);
+        }
+        return Filter;
+    }*/
 }
