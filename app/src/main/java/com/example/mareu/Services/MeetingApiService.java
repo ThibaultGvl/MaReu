@@ -3,13 +3,9 @@ package com.example.mareu.Services;
 import com.example.mareu.Controler.DatePicker;
 import com.example.mareu.Controler.MainActivity;
 import com.example.mareu.Model.Meeting;
-import com.example.mareu.Services.ApiService;
-import com.example.mareu.Services.MeetingGenerator;
 
-import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Filter;
 
 public class MeetingApiService implements ApiService {
 
@@ -33,22 +29,22 @@ public class MeetingApiService implements ApiService {
     public void deleteMeeting(Meeting meeting) {mMeetings.remove(meeting);}
 
     @Override
-    public List<Meeting> getMeetingsByDate(List<Meeting> meetings) {
+    public void getMeetingsByDate(List<Meeting> meetings) {
         for (Meeting meeting : mMeetings){
-            if (meeting.getDate().equals(mDatePicker.getDate())) {
+            if (meeting.getDate().equals(DatePicker.getDate())) {
                 meetings.add(meeting);
             }
         }
-        return meetings;
+        mActivity.returnResult(meetings);
     }
 
     @Override
-    public List<Meeting> getMeetingsByRoom(List<Meeting> meetings) {
-        for (Meeting meeting : mMeetings) {
-            if (meeting.getRoom().equals(mActivity.getRoomPosition())) {
+    public void getMeetingsByRoom(List<Meeting> meetings) {
+       /*for (Meeting meeting : mMeetings) {
+            if (meeting.getRoom().equals(RoomPosition)) {
                 meetings.add(meeting);
             }
         }
-        return meetings;
+        mActivity.returnResult(meetings);*/
     }
 }

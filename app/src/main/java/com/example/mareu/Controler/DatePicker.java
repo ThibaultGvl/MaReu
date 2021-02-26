@@ -12,6 +12,9 @@ import com.example.mareu.Model.Meeting;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.DI;
 import com.example.mareu.View.MeetingRecyclerViewAdapter;
+import com.example.mareu.events.DatePickerEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +23,7 @@ import java.util.List;
 public class DatePicker extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
-    private String date;
+    private static String date;
 
     private MeetingRecyclerViewAdapter mRecyclerViewAdapter;
 
@@ -40,9 +43,9 @@ public class DatePicker extends DialogFragment
     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
         date = dayOfMonth + "/" + (month+1) + "/" + year;
         Toast.makeText(getContext(), "Voici les réunions ayant lieu le " + date, Toast.LENGTH_SHORT).show();
+        EventBus.getDefault().post(new DatePickerEvent(date));
     }
-
-    public String getDate() {
+    public static String getDate() {
         return date;
     }
 }

@@ -24,6 +24,7 @@ import android.view.View;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     private String RoomPosition;
 
+    private int position;
+
     private List<Meeting> meetingsByRoom = new ArrayList<>();
+
+    private List<Meeting> meetingsByDate = new ArrayList<>();
+
+    private List<Meeting> mMeetings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +59,12 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab = binding.fab;
         RecyclerView recyclerView = binding.mainRecyclerView;
         apiService = DI.getMeetingApiService();
-        List<Meeting> mMeetings = apiService.getMeetings();
+        mMeetings = apiService.getMeetings();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         adapter = new MeetingRecyclerViewAdapter(mMeetings);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
+        configureSwipeRefreshLayout();
         setContentView(view);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                apiService.getMeetings().clear();
-                apiService.getMeetings();
+                returnResult(mMeetings);
             }
         });
     }
@@ -80,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     public void showDatePickerDialog(MenuItem item) {
         DialogFragment newFragment = new DatePicker();
         newFragment.show(getSupportFragmentManager(), "datePicker");
+        apiService.getMeetingsByDate(meetingsByDate);
     }
 
     @Override
@@ -113,15 +121,13 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle(getResources().getString(R.string.dialog_title))
                 .setNeutralButton(getResources().getText(R.string.cancel_dialog), new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onBackPressed();
-                    }
+                    public void onClick(DialogInterface dialog, int which) {}
                 })
-
                 .setPositiveButton(getResources().getText(R.string.OK), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        apiService.getMeetingsByRoom(meetingsByRoom);
+                        getMeetingsByRoom(meetingsByRoom);
+                        Toast.makeText(getBaseContext(), "Voici les Réunions ayant lieu en Salle " + RoomPosition, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setSingleChoiceItems(mRooms, CheckedItem, new DialogInterface.OnClickListener() {
@@ -137,7 +143,21 @@ public class MainActivity extends AppCompatActivity {
         apiService.getMeetings();
     }
 
-    public String getRoomPosition() {return RoomPosition;}
+    public void getMeetingsByRoom(List<Meeting> meetings) {
+        meetings.clear();
+        for (Meeting meeting : mMeetings) {
+            if (meeting.getRoom().equals(RoomPosition)) {
+                meetings.add(meeting);
+            }
+        }
+        returnResult(meetings);
+    }
+
+    public void returnResult (List<Meeting> meetings) {
+        mMeetings.clear();
+        mMeetings.addAll(meetings);
+        adapter.notifyDataSetChanged();
+    }
 
     private static final String[] mRooms = new String[] {
             "101", "102", "103", "104", "105", "106", "107", "108", "109", "110"

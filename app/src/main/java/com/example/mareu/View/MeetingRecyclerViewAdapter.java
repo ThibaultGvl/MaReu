@@ -56,11 +56,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         return this.mMeetings.size();
     }
 
-    public void setData (List<Meeting> meetings) {
-        mMeetings = meetings;
-        notifyDataSetChanged();
-    }
-
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
 
         private ImageButton deletebtn = binding.deleteBtn;
