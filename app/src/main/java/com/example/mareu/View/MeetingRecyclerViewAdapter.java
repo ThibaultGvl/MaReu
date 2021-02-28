@@ -16,7 +16,7 @@ import com.example.mareu.databinding.FragmentMeetingItemBinding;
 
 import java.util.List;
 
-public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder> /*implements Filterable*/ {
+public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder> {
 
     private List<Meeting> mMeetings;
 
@@ -26,7 +26,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     public MeetingRecyclerViewAdapter(List<Meeting> mMeetings) {
         this.mMeetings = mMeetings;
-        //List<Meeting> allMeetings = new ArrayList<>(mMeetings);
     }
 
     @NonNull
@@ -54,11 +53,6 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public int getItemCount() {
         return this.mMeetings.size();
     }
-
-    /*@Override
-    public Filter getFilter() {
-        return meetingFilter;
-    }*/
 
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
 

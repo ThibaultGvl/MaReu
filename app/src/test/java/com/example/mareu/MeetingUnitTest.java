@@ -28,8 +28,6 @@ public class MeetingUnitTest {
 
     private ApiService mService;
 
-    private MeetingRecyclerViewAdapter mRecyclerViewAdapter;
-
     private Meeting mMeeting;
 
     @Before
@@ -57,5 +55,4 @@ public class MeetingUnitTest {
         mService.deleteMeeting(meetingToDelete);
         assertFalse(mService.getMeetings().contains(meetingToDelete));
     }
-
 }

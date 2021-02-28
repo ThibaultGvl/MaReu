@@ -148,14 +148,6 @@ public class MainActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    public String getRoomPosition() {
-        return RoomPosition;
-    }
-
-    public String getDateToShow(){
-        return dateToShow;
-    }
-
     public void getAllMeetings(MenuItem Item) {
         apiService.getMeetings();
     }
@@ -163,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     public void getMeetingsByDate(List<Meeting> meetings) {
         meetings.clear();
         for (Meeting meeting : mMeetings){
-            if (meeting.getDate().equals(getDateToShow())) {
+            if (meeting.getDate().equals(dateToShow)) {
                 meetings.add(meeting);
             }
         }
@@ -173,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
     public void getMeetingsByRoom(List<Meeting> meetings) {
         meetings.clear();
         for (Meeting meeting : mMeetings) {
-            if (meeting.getRoom().equals(getRoomPosition())) {
+            if (meeting.getRoom().equals(RoomPosition)) {
                 meetings.add(meeting);
             }
         }
