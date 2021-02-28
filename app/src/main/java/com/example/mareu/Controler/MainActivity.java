@@ -1,5 +1,6 @@
 package com.example.mareu.Controler;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -27,27 +27,27 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMeetingListBinding binding;
 
-    private ApiService apiService;
-
-    private DatePicker mDatePicker;
+    private ApiService apiService = DI.getMeetingApiService();
 
     private MeetingRecyclerViewAdapter adapter;
 
     private String RoomPosition;
-
-    private int position;
 
     private List<Meeting> meetingsByRoom = new ArrayList<>();
 
     private List<Meeting> meetingsByDate = new ArrayList<>();
 
     private List<Meeting> mMeetings;
+
+    private String dateToShow;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = binding.fab;
         RecyclerView recyclerView = binding.mainRecyclerView;
-        apiService = DI.getMeetingApiService();
         mMeetings = apiService.getMeetings();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         adapter = new MeetingRecyclerViewAdapter(mMeetings);
@@ -82,12 +81,6 @@ public class MainActivity extends AppCompatActivity {
                 returnResult(mMeetings);
             }
         });
-    }
-
-    public void showDatePickerDialog(MenuItem item) {
-        DialogFragment newFragment = new DatePicker();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-        apiService.getMeetingsByDate(meetingsByDate);
     }
 
     @Override
@@ -139,14 +132,48 @@ public class MainActivity extends AppCompatActivity {
         materialAlertDialogBuilder.show();
     }
 
+    public void showDatePicker(MenuItem Item) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
+                dateToShow = dayOfMonth + "/" + (month+1)+ "/" + year;
+                Toast.makeText(getBaseContext(), "Voici les Réunions ayant Lieu le " + dateToShow, Toast.LENGTH_SHORT).show();
+                getMeetingsByDate(meetingsByDate);
+            }
+        },year, month, dayOfMonth);
+        datePickerDialog.show();
+    }
+
+    public String getRoomPosition() {
+        return RoomPosition;
+    }
+
+    public String getDateToShow(){
+        return dateToShow;
+    }
+
     public void getAllMeetings(MenuItem Item) {
         apiService.getMeetings();
+    }
+
+    public void getMeetingsByDate(List<Meeting> meetings) {
+        meetings.clear();
+        for (Meeting meeting : mMeetings){
+            if (meeting.getDate().equals(getDateToShow())) {
+                meetings.add(meeting);
+            }
+        }
+        returnResult(meetings);
     }
 
     public void getMeetingsByRoom(List<Meeting> meetings) {
         meetings.clear();
         for (Meeting meeting : mMeetings) {
-            if (meeting.getRoom().equals(RoomPosition)) {
+            if (meeting.getRoom().equals(getRoomPosition())) {
                 meetings.add(meeting);
             }
         }
@@ -163,5 +190,5 @@ public class MainActivity extends AppCompatActivity {
             "101", "102", "103", "104", "105", "106", "107", "108", "109", "110"
     };
 
-    int CheckedItem = -1;
+    int CheckedItem = 0;
 }

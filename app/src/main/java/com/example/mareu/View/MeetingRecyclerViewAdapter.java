@@ -9,16 +9,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mareu.Controler.DatePicker;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.DI;
 import com.example.mareu.databinding.FragmentMeetingItemBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder> {
+public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder> /*implements Filterable*/ {
 
     private List<Meeting> mMeetings;
 
@@ -26,9 +24,10 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     private FragmentMeetingItemBinding binding;
 
-    private DatePicker mDatePicker;
-
-    public MeetingRecyclerViewAdapter(List<Meeting> mMeetings) {this.mMeetings = mMeetings;}
+    public MeetingRecyclerViewAdapter(List<Meeting> mMeetings) {
+        this.mMeetings = mMeetings;
+        //List<Meeting> allMeetings = new ArrayList<>(mMeetings);
+    }
 
     @NonNull
     @Override
@@ -55,6 +54,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     public int getItemCount() {
         return this.mMeetings.size();
     }
+
+    /*@Override
+    public Filter getFilter() {
+        return meetingFilter;
+    }*/
 
     public class MeetingViewHolder extends RecyclerView.ViewHolder {
 

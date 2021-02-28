@@ -1,6 +1,5 @@
 package com.example.mareu.Services;
 
-import com.example.mareu.Controler.DatePicker;
 import com.example.mareu.Controler.MainActivity;
 import com.example.mareu.Model.Meeting;
 
@@ -10,8 +9,6 @@ import java.util.List;
 public class MeetingApiService implements ApiService {
 
     private final List<Meeting> mMeetings = new ArrayList<>();
-
-    private DatePicker mDatePicker;
 
     private MainActivity mActivity;
 
@@ -30,12 +27,12 @@ public class MeetingApiService implements ApiService {
 
     @Override
     public void getMeetingsByDate(List<Meeting> meetings) {
-        for (Meeting meeting : mMeetings){
-            if (meeting.getDate().equals(DatePicker.getDate())) {
+        /*for (Meeting meeting : mMeetings){
+            if (meeting.getDate().equals(mDatePicker.getDate())) {
                 meetings.add(meeting);
             }
         }
-        mActivity.returnResult(meetings);
+        mActivity.returnResult(meetings);*/
     }
 
     @Override

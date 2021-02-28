@@ -33,24 +33,22 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
     private ActivityCreateMeetingBinding binding;
 
-    private int Date;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApiService = DI.getMeetingApiService();
         binding = ActivityCreateMeetingBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        AutoCompleteTextView meetingRoom = (AutoCompleteTextView) binding.meetingRoomInput;
+        AutoCompleteTextView meetingRoom = binding.meetingRoomInput;
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, mRooms);
         meetingRoom.setAdapter(adapter);
         TextInputLayout meetingName = binding.meetingNameLyt;
-        MultiAutoCompleteTextView meetingParticipants = (MultiAutoCompleteTextView) binding.meetingParticipantsInput;
+        MultiAutoCompleteTextView meetingParticipants = binding.meetingParticipantsInput;
         meetingParticipants.setThreshold(1);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mParticipants);
         meetingParticipants.setAdapter(adapter1);
         meetingParticipants.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-        AutoCompleteTextView meetingHour = (AutoCompleteTextView) binding.meetingHourInput;
+        AutoCompleteTextView meetingHour = binding.meetingHourInput;
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mHours);
         meetingHour.setAdapter(mAdapter);
         AutoCompleteTextView meetingDate = binding.meetingDate;
@@ -69,18 +67,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         meetingDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int year = c.get(Calendar.YEAR);
-                int month = c.get(Calendar.MONTH);
-                int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog dpd = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String date = dayOfMonth + "/" + (month+1)+ "/" + year;
-                        binding.meetingDate.setText(date);
-                    }
-                },year, month, dayOfMonth);
-                dpd.show();
+                datePicker();
             }
         });
         createBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,6 +87,21 @@ public class CreateMeetingActivity extends AppCompatActivity {
         });
     }
 
+    public void datePicker() {
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog dpd = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String date = dayOfMonth + "/" + (month+1)+ "/" + year;
+                binding.meetingDate.setText(date);
+            }
+        },year, month, dayOfMonth);
+        dpd.show();
+    }
+
     private static final String[] mRooms = new String[] {
             "101", "102", "103", "104", "105", "106", "107", "108", "109", "110"
     };
@@ -109,4 +111,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
     private static final String[] mParticipants = new String[] {
             "Mario@lamzone.com", "Peach@lamzone.com", "Luigi@lamzone.com", "Bowser@lamzone.com", "Wario@lamzone.com", "Waluigi@lamzone.com", "Koopa@lamzone.com", "Goomba@lamzone.com", "Daisy@lamzone.com", "Yoshi@lamzone.com"
     };
+
+    public String[] getParticipants() {
+        return mParticipants;
+    }
 }
