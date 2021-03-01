@@ -12,7 +12,11 @@ public interface ApiService {
 
     void deleteMeeting(Meeting meeting);
 
-    void getMeetingsByDate(List<Meeting> meetings);
+    void getMeetingsByDate(List<Meeting> meetings, String DatePosition);
 
-    void getMeetingsByRoom(List<Meeting> meetings);
+    void getMeetingsByRoom(List<Meeting> meetings, String RoomPosition);
+
+    List<Meeting> getAllMeetings();
+
+    void returnResult (List<Meeting> meetings);
 }

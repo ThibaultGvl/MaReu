@@ -34,20 +34,17 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMeetingListBinding binding;
 
-    private ApiService apiService = DI.getMeetingApiService();
+    private final ApiService apiService = DI.getMeetingApiService();
 
-    private MeetingRecyclerViewAdapter adapter;
+    private final List<Meeting> meetingsByRoom = new ArrayList<>();
 
-    private String RoomPosition;
-
-    private List<Meeting> meetingsByRoom = new ArrayList<>();
-
-    private List<Meeting> meetingsByDate = new ArrayList<>();
+    private final List<Meeting> meetingsByDate = new ArrayList<>();
 
     private List<Meeting> mMeetings;
 
     private String dateToShow;
 
+    private String RoomPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = binding.mainRecyclerView;
         mMeetings = apiService.getMeetings();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        adapter = new MeetingRecyclerViewAdapter(mMeetings);
+        MeetingRecyclerViewAdapter adapter = new MeetingRecyclerViewAdapter(mMeetings);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         configureSwipeRefreshLayout();
@@ -78,7 +75,8 @@ public class MainActivity extends AppCompatActivity {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                returnResult(mMeetings);
+                mMeetings.clear();
+                mMeetings.addAll(apiService.getAllMeetings());
             }
         });
     }
@@ -119,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(getResources().getText(R.string.OK), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getMeetingsByRoom(meetingsByRoom);
+                        apiService.getMeetingsByRoom(meetingsByRoom, RoomPosition);
+                        apiService.returnResult(meetingsByRoom);
                         Toast.makeText(getBaseContext(), "Voici les Réunions ayant lieu en Salle " + RoomPosition, Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -142,40 +141,19 @@ public class MainActivity extends AppCompatActivity {
             public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
                 dateToShow = dayOfMonth + "/" + (month+1)+ "/" + year;
                 Toast.makeText(getBaseContext(), "Voici les Réunions ayant Lieu le " + dateToShow, Toast.LENGTH_SHORT).show();
-                getMeetingsByDate(meetingsByDate);
+                apiService.getMeetingsByDate(meetingsByDate, dateToShow);
+                apiService.returnResult(meetingsByDate);
             }
         },year, month, dayOfMonth);
         datePickerDialog.show();
     }
 
     public void getAllMeetings(MenuItem Item) {
-        apiService.getMeetings();
+        apiService.returnResult(apiService.getAllMeetings());
     }
 
-    public void getMeetingsByDate(List<Meeting> meetings) {
-        meetings.clear();
-        for (Meeting meeting : mMeetings){
-            if (meeting.getDate().equals(dateToShow)) {
-                meetings.add(meeting);
-            }
-        }
-        returnResult(meetings);
-    }
+    public void landscape() {
 
-    public void getMeetingsByRoom(List<Meeting> meetings) {
-        meetings.clear();
-        for (Meeting meeting : mMeetings) {
-            if (meeting.getRoom().equals(RoomPosition)) {
-                meetings.add(meeting);
-            }
-        }
-        returnResult(meetings);
-    }
-
-    public void returnResult (List<Meeting> meetings) {
-        mMeetings.clear();
-        mMeetings.addAll(meetings);
-        adapter.notifyDataSetChanged();
     }
 
     private static final String[] mRooms = new String[] {

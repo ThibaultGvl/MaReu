@@ -18,7 +18,7 @@ import java.util.List;
 
 public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecyclerViewAdapter.MeetingViewHolder> {
 
-    private List<Meeting> mMeetings;
+    private final List<Meeting> mMeetings;
 
     public ApiService mApiService = DI.getMeetingApiService();
 
@@ -65,6 +65,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         public void updateWithMeeting(@NonNull Meeting meeting){
             String information  = meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom() + " - " + meeting.getDate();
             binding.meetingsInformation.setText(information);
+            if(meeting.getParticipants().endsWith(",")) {
+                meeting.getParticipants().substring(meeting.getParticipants().length() - 1);
+            }
             binding.meetingParticipants.setText(meeting.getParticipants());
         }
     }
