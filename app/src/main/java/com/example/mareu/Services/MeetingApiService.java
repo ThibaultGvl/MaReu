@@ -1,5 +1,6 @@
 package com.example.mareu.Services;
 
+import com.example.mareu.Controler.MainActivity;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.View.MeetingRecyclerViewAdapter;
 
@@ -12,7 +13,7 @@ public class MeetingApiService implements ApiService {
 
     private final List<Meeting> allMeetings = new ArrayList<>();
 
-    private MeetingRecyclerViewAdapter adapter;
+    private MainActivity mActivity;
 
     @Override
     public List<Meeting> getMeetings() {
@@ -32,32 +33,27 @@ public class MeetingApiService implements ApiService {
     }
 
     @Override
-    public void getMeetingsByDate(List<Meeting> meetings, String DatePosition) {
+    public List<Meeting> getMeetingsByDate(List<Meeting> meetings, String DatePosition) {
         for (Meeting meeting : mMeetings){
             if (meeting.getDate().equals(DatePosition)) {
                 meetings.add(meeting);
             }
         }
+        return meetings;
     }
 
     @Override
-    public void getMeetingsByRoom(List<Meeting> meetings, String RoomPosition) {
+    public List<Meeting> getMeetingsByRoom(List<Meeting> meetings, String RoomPosition) {
        for (Meeting meeting : mMeetings) {
             if (meeting.getRoom().equals(RoomPosition)) {
                 meetings.add(meeting);
             }
         }
+       return meetings;
     }
 
     @Override
     public List<Meeting> getAllMeetings() {
         return allMeetings;
-    }
-
-    @Override
-    public void returnResult (List<Meeting> meetings) {
-        mMeetings.clear();
-        mMeetings.addAll(meetings);
-        adapter.notifyDataSetChanged();
     }
 }

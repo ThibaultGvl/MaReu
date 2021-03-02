@@ -66,7 +66,7 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
             String information  = meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom() + " - " + meeting.getDate();
             binding.meetingsInformation.setText(information);
             if(meeting.getParticipants().endsWith(",")) {
-                meeting.getParticipants().substring(meeting.getParticipants().length() - 1);
+                meeting.getParticipants().substring(1, meeting.getParticipants().length() - 1);
             }
             binding.meetingParticipants.setText(meeting.getParticipants());
         }

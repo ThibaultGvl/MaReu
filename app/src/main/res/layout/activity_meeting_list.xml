@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             app:layoutManager="LinearLayoutManager"
             tools:listitem="@layout/fragment_meeting_item"
-            android:paddingTop="55dp"/>
+            android:paddingTop="@dimen/padding_top_rv"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 

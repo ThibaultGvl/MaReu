@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMeetingListBinding binding;
 
+    private MeetingRecyclerViewAdapter adapter;
+
     private final ApiService apiService = DI.getMeetingApiService();
 
     private final List<Meeting> meetingsByRoom = new ArrayList<>();
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = binding.mainRecyclerView;
         mMeetings = apiService.getMeetings();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        MeetingRecyclerViewAdapter adapter = new MeetingRecyclerViewAdapter(mMeetings);
+        adapter = new MeetingRecyclerViewAdapter(mMeetings);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         configureSwipeRefreshLayout();
@@ -118,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         apiService.getMeetingsByRoom(meetingsByRoom, RoomPosition);
-                        apiService.returnResult(meetingsByRoom);
+                        returnResult(meetingsByRoom);
                         Toast.makeText(getBaseContext(), "Voici les Réunions ayant lieu en Salle " + RoomPosition, Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -142,18 +144,20 @@ public class MainActivity extends AppCompatActivity {
                 dateToShow = dayOfMonth + "/" + (month+1)+ "/" + year;
                 Toast.makeText(getBaseContext(), "Voici les Réunions ayant Lieu le " + dateToShow, Toast.LENGTH_SHORT).show();
                 apiService.getMeetingsByDate(meetingsByDate, dateToShow);
-                apiService.returnResult(meetingsByDate);
+                returnResult(meetingsByDate);
             }
         },year, month, dayOfMonth);
         datePickerDialog.show();
     }
 
     public void getAllMeetings(MenuItem Item) {
-        apiService.returnResult(apiService.getAllMeetings());
+       returnResult(apiService.getAllMeetings());
     }
 
-    public void landscape() {
-
+    public void returnResult (List<Meeting> meetings) {
+        mMeetings.clear();
+        mMeetings.addAll(meetings);
+        adapter.notifyDataSetChanged();
     }
 
     private static final String[] mRooms = new String[] {
