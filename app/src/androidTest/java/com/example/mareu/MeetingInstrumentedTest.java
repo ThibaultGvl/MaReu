@@ -1,8 +1,10 @@
 package com.example.mareu;
 
 import android.content.Context;
+import android.widget.DatePicker;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -81,9 +83,9 @@ public class MeetingInstrumentedTest {
         onView(withId(R.id.meeting_participants_input)).perform(click());
         onView(withText("Peach@lamzone.com")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.meeting_date)).perform(click());
-        onView(withClassName(Matchers.equalTo("28/02/2021")));
+        onView(withClassName((PickerActions.setDate(28, 2, 2021)));
         onView(withId(R.id.meeting_hour_input)).perform(click());
-        onView(withText("8h00")).inRoot(RootMatchers.isPlatformPopup()).perform(click());
+        onView(withText("8h00")).inRoot(isPlatformPopup()).perform(click());
         onView(withText(R.id.meeting_room_input)).perform(click());
         onView(withParentIndex(0)).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.create_btn)).perform(click());

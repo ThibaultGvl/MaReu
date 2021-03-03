@@ -28,12 +28,16 @@ public class MeetingUnitTest {
 
     private ApiService mService;
 
-    private Meeting mMeeting;
+    private Meeting mMeeting0;
+
+    private Meeting mMeeting1;
+
+    private String DatePosition;
 
     @Before
     public void setUp() {
         mService = DI.getNewInstanceApiService();
-        mService.createMeeting(mMeeting);
+        mService.createMeeting(mMeeting0);
     }
 
     @Test
@@ -50,9 +54,17 @@ public class MeetingUnitTest {
     }
 
     @Test
-    public void deleteMeeting() {
+    public void deleteMeetingWithSuccess() {
         Meeting meetingToDelete = mService.getMeetings().get(0);
         mService.deleteMeeting(meetingToDelete);
         assertFalse(mService.getMeetings().contains(meetingToDelete));
+    }
+
+    @Test
+    public void filterMeetingsByDateWithSuccess() {
+        mMeeting0 = mService.getMeetings().get(0);
+        Meeting meetingNoReturn = mService.getMeetings().get(1);
+        mService.getMeetingsByDate(DatePosition);
+        assertTrue(mService.getMeetings().contains(mMeeting0));
     }
 }

@@ -1,6 +1,5 @@
 package com.example.mareu.Services;
 
-import com.example.mareu.Controler.MainActivity;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.View.MeetingRecyclerViewAdapter;
 
@@ -9,11 +8,7 @@ import java.util.List;
 
 public class MeetingApiService implements ApiService {
 
-    private final List<Meeting> mMeetings = new ArrayList<>();
-
-    private final List<Meeting> allMeetings = new ArrayList<>();
-
-    private MainActivity mActivity;
+    private List<Meeting> mMeetings = new ArrayList<>();
 
     @Override
     public List<Meeting> getMeetings() {
@@ -23,37 +18,32 @@ public class MeetingApiService implements ApiService {
     @Override
     public void createMeeting(Meeting meeting) {
         mMeetings.add(meeting);
-        allMeetings.add(meeting);
     }
 
     @Override
     public void deleteMeeting(Meeting meeting) {
         mMeetings.remove(meeting);
-        allMeetings.remove(meeting);
     }
 
     @Override
-    public List<Meeting> getMeetingsByDate(List<Meeting> meetings, String DatePosition) {
+    public List<Meeting> getMeetingsByDate(String DatePosition) {
+        List<Meeting> meetingsFilteredDate = new ArrayList<>();
         for (Meeting meeting : mMeetings){
             if (meeting.getDate().equals(DatePosition)) {
-                meetings.add(meeting);
+                meetingsFilteredDate.add(meeting);
             }
         }
-        return meetings;
+        return meetingsFilteredDate;
     }
 
     @Override
-    public List<Meeting> getMeetingsByRoom(List<Meeting> meetings, String RoomPosition) {
-       for (Meeting meeting : mMeetings) {
+    public List<Meeting> getMeetingsByRoom(String RoomPosition) {
+        List<Meeting> meetingsFilteredRoom = new ArrayList<>();
+        for (Meeting meeting : mMeetings) {
             if (meeting.getRoom().equals(RoomPosition)) {
-                meetings.add(meeting);
+                meetingsFilteredRoom.add(meeting);
             }
         }
-       return meetings;
-    }
-
-    @Override
-    public List<Meeting> getAllMeetings() {
-        return allMeetings;
+       return meetingsFilteredRoom;
     }
 }

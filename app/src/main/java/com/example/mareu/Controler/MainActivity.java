@@ -34,17 +34,11 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMeetingListBinding binding;
 
-    private MeetingRecyclerViewAdapter adapter;
-
     private final ApiService apiService = DI.getMeetingApiService();
 
-    private final List<Meeting> meetingsByRoom = new ArrayList<>();
+    private List<Meeting> mMeetings = new ArrayList<>();
 
-    private final List<Meeting> meetingsByDate = new ArrayList<>();
-
-    private List<Meeting> mMeetings;
-
-    private String dateToShow;
+    private MeetingRecyclerViewAdapter adapter;
 
     private String RoomPosition;
 
@@ -57,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         FloatingActionButton fab = binding.fab;
         RecyclerView recyclerView = binding.mainRecyclerView;
-        mMeetings = apiService.getMeetings();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         adapter = new MeetingRecyclerViewAdapter(mMeetings);
         recyclerView.setAdapter(adapter);
@@ -77,8 +70,7 @@ public class MainActivity extends AppCompatActivity {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mMeetings.clear();
-                mMeetings.addAll(apiService.getAllMeetings());
+                returnResult(apiService.getMeetings());
             }
         });
     }
@@ -119,8 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(getResources().getText(R.string.OK), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        apiService.getMeetingsByRoom(meetingsByRoom, RoomPosition);
-                        returnResult(meetingsByRoom);
+                        returnResult(apiService.getMeetingsByRoom(RoomPosition));
                         Toast.makeText(getBaseContext(), "Voici les Réunions ayant lieu en Salle " + RoomPosition, Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -141,17 +132,22 @@ public class MainActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-                dateToShow = dayOfMonth + "/" + (month+1)+ "/" + year;
+                String dateToShow = dayOfMonth + "/" + (month+1)+ "/" + year;
                 Toast.makeText(getBaseContext(), "Voici les Réunions ayant Lieu le " + dateToShow, Toast.LENGTH_SHORT).show();
-                apiService.getMeetingsByDate(meetingsByDate, dateToShow);
-                returnResult(meetingsByDate);
+                returnResult(apiService.getMeetingsByDate(dateToShow));
             }
         },year, month, dayOfMonth);
         datePickerDialog.show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        returnResult(apiService.getMeetings());
+    }
+
     public void getAllMeetings(MenuItem Item) {
-       returnResult(apiService.getAllMeetings());
+        returnResult(apiService.getMeetings());
     }
 
     public void returnResult (List<Meeting> meetings) {

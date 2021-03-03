@@ -20,9 +20,9 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
 
     private final List<Meeting> mMeetings;
 
-    public ApiService mApiService = DI.getMeetingApiService();
+    protected FragmentMeetingItemBinding mFragmentMeetingItemBinding;
 
-    private FragmentMeetingItemBinding binding;
+    public ApiService mApiService = DI.getMeetingApiService();
 
     public MeetingRecyclerViewAdapter(List<Meeting> mMeetings) {
         this.mMeetings = mMeetings;
@@ -31,8 +31,8 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
     @NonNull
     @Override
     public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        binding = (FragmentMeetingItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-        return new MeetingViewHolder(binding);
+        mFragmentMeetingItemBinding = (FragmentMeetingItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new MeetingViewHolder(mFragmentMeetingItemBinding);
     }
 
     @Override
@@ -42,9 +42,10 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
      holder.deletebtn.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+             mMeetings.remove(meeting);
              mApiService.deleteMeeting(meeting);
-             Toast.makeText(v.getContext(), "Cette Réunion a bien été supprimée !", Toast.LENGTH_SHORT).show();
              notifyItemRemoved(position);
+             Toast.makeText(v.getContext(), "Cette Réunion a bien été supprimée !", Toast.LENGTH_SHORT).show();
          }
      });
     }
@@ -54,21 +55,25 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         return this.mMeetings.size();
     }
 
-    public class MeetingViewHolder extends RecyclerView.ViewHolder {
+    public static class MeetingViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageButton deletebtn = binding.deleteBtn;
+        private ImageButton deletebtn;
+
+        protected FragmentMeetingItemBinding mFragmentMeetingItemBinding;
 
         public MeetingViewHolder(FragmentMeetingItemBinding fragmentMeetingItemBinding) {
             super(fragmentMeetingItemBinding.getRoot());
+            mFragmentMeetingItemBinding = fragmentMeetingItemBinding;
+            deletebtn = mFragmentMeetingItemBinding.deleteBtn;
         }
 
         public void updateWithMeeting(@NonNull Meeting meeting){
             String information  = meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom() + " - " + meeting.getDate();
-            binding.meetingsInformation.setText(information);
+            mFragmentMeetingItemBinding.meetingsInformation.setText(information);
             if(meeting.getParticipants().endsWith(",")) {
-                meeting.getParticipants().substring(1, meeting.getParticipants().length() - 1);
+                meeting.getParticipants().substring(meeting.getParticipants().length() - 1);
             }
-            binding.meetingParticipants.setText(meeting.getParticipants());
+            mFragmentMeetingItemBinding.meetingParticipants.setText(meeting.getParticipants());
         }
     }
 }
