@@ -70,8 +70,11 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         public void updateWithMeeting(@NonNull Meeting meeting){
             String information  = meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom() + " - " + meeting.getDate();
             mFragmentMeetingItemBinding.meetingsInformation.setText(information);
-            if(meeting.getParticipants().endsWith(",")) {
-                meeting.getParticipants().substring(meeting.getParticipants().length() - 1);
+            if(meeting.getParticipants().endsWith(", ")) {
+                meeting.setParticipants(meeting.getParticipants().substring(0, meeting.getParticipants().length() - 2));
+            }
+            else if (meeting.getParticipants().endsWith(",")) {
+                meeting.setParticipants(meeting.getParticipants().substring(0, meeting.getParticipants().length() - 1));
             }
             mFragmentMeetingItemBinding.meetingParticipants.setText(meeting.getParticipants());
         }

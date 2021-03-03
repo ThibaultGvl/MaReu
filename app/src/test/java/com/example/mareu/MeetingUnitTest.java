@@ -63,8 +63,8 @@ public class MeetingUnitTest {
     @Test
     public void filterMeetingsByDateWithSuccess() {
         mMeeting0 = mService.getMeetings().get(0);
-        Meeting meetingNoReturn = mService.getMeetings().get(1);
+        mMeeting1 = mService.getMeetings().get(1);
         mService.getMeetingsByDate(DatePosition);
-        assertTrue(mService.getMeetings().contains(mMeeting0));
+        assertFalse(mService.getMeetings().contains(mMeeting1));
     }
 }
