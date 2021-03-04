@@ -31,6 +31,7 @@ import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
+import static androidx.test.espresso.action.ViewActions.removeGlobalAssertion;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -57,18 +58,6 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class MeetingInstrumentedTest {
-
-    private MainActivity mActivity;
-
-    private MeetingRecyclerViewAdapter mRecyclerViewAdapter;
-
-    private ApiService mApiService;
-
-    private CreateMeetingActivity mCreateMeetingActivity;
-
-    private Meeting meeting = new Meeting("8h00","meetingToReturn","Mario@lamzone.com, Peach@lamzone.com", "102","26/2/2021");
-
-    private Meeting meeting1 = new Meeting("8h00","meetingToNoReturn", "Luigi@lamzone.com","105","27/2/2021");
 
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
@@ -104,7 +93,6 @@ public class MeetingInstrumentedTest {
 
     @Test
     public void meetingList_deleteAction_shouldDeleteItem() {
-        meetingList_createAction_shouldCreateItem();
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
         pressBack();
         onView(withId(R.id.delete_btn)).perform(click());
@@ -127,5 +115,6 @@ public class MeetingInstrumentedTest {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
         onView(withText("Afficher toutes les Réunions")).perform(click());
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
+        onView(ViewMatchers.withId(R.id.delete_btn)).perform(click());
     }
 }

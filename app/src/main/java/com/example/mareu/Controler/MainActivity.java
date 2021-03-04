@@ -175,5 +175,5 @@ public class MainActivity extends AppCompatActivity {
             "101", "102", "103", "104", "105", "106", "107", "108", "109", "110"
     };
 
-    int CheckedItem = 0;
+    int CheckedItem = -1;
 }
