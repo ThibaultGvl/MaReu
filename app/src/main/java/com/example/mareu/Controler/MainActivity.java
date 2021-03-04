@@ -3,6 +3,7 @@ package com.example.mareu.Controler;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.example.mareu.Model.Meeting;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.view.OrientationEventListener;
 import android.view.View;
 
 import android.view.Menu;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MeetingRecyclerViewAdapter adapter;
 
+    private Configuration config;
+
     private String RoomPosition;
 
     @Override
@@ -56,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(linearLayoutManager);
         configureSwipeRefreshLayout();
+        config = getResources().getConfiguration();
+        landscape();
         setContentView(view);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +146,8 @@ public class MainActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -154,6 +162,13 @@ public class MainActivity extends AppCompatActivity {
         mMeetings.clear();
         mMeetings.addAll(meetings);
         adapter.notifyDataSetChanged();
+    }
+
+    public void landscape() {
+        if (config.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mMeetings.clear();
+            apiService.getMeetings().clear();
+        }
     }
 
     private static final String[] mRooms = new String[] {

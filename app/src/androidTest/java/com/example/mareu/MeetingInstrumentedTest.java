@@ -128,5 +128,4 @@ public class MeetingInstrumentedTest {
         onView(withText("Afficher toutes les Réunions")).perform(click());
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
     }
-
 }

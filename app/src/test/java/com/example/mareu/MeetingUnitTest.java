@@ -62,9 +62,21 @@ public class MeetingUnitTest {
 
     @Test
     public void filterMeetingsByDateWithSuccess() {
-        mMeeting0 = mService.getMeetings().get(0);
-        mMeeting1 = mService.getMeetings().get(1);
-        mService.getMeetingsByDate(DatePosition);
-        assertFalse(mService.getMeetings().contains(mMeeting1));
+        deleteMeetingWithSuccess();
+        Meeting meetingToFilter = new Meeting("7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
+        mService.createMeeting(meetingToFilter);
+        Meeting meeting = new Meeting("6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
+        mService.createMeeting(meeting);
+        assertTrue(mService.getMeetingsByDate(meetingToFilter.getDate()).contains(meetingToFilter));
+    }
+
+    @Test
+    public void filterMeetingsByRoomWithSuccess() {
+        deleteMeetingWithSuccess();
+        Meeting meetingToFilter = new Meeting("7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
+        mService.createMeeting(meetingToFilter);
+        Meeting meeting = new Meeting("6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
+        mService.createMeeting(meeting);
+        assertFalse(mService.getMeetingsByRoom(meetingToFilter.getRoom()).contains(meeting));
     }
 }
