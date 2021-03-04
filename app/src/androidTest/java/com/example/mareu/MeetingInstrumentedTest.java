@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.DatePicker;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -13,6 +14,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.mareu.Controler.CreateMeetingActivity;
 import com.example.mareu.Controler.MainActivity;
+import com.example.mareu.Model.Meeting;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.MeetingApiService;
 import com.example.mareu.View.MeetingRecyclerViewAdapter;
@@ -25,9 +27,12 @@ import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
+import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
@@ -61,6 +66,10 @@ public class MeetingInstrumentedTest {
 
     private CreateMeetingActivity mCreateMeetingActivity;
 
+    private Meeting meeting = new Meeting("8h00","meetingToReturn","Mario@lamzone.com, Peach@lamzone.com", "102","26/2/2021");
+
+    private Meeting meeting1 = new Meeting("8h00","meetingToNoReturn", "Luigi@lamzone.com","105","27/2/2021");
+
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
 
@@ -83,23 +92,41 @@ public class MeetingInstrumentedTest {
         onView(withId(R.id.meeting_participants_input)).perform(click());
         onView(withText("Peach@lamzone.com")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.meeting_date)).perform(click());
-        onView(withClassName((PickerActions.setDate(28, 2, 2021)));
+        onView(withText("OK")).perform(click());
         onView(withId(R.id.meeting_hour_input)).perform(click());
-        onView(withText("8h00")).inRoot(isPlatformPopup()).perform(click());
-        onView(withText(R.id.meeting_room_input)).perform(click());
-        onView(withParentIndex(0)).inRoot(isPlatformPopup()).perform(click());
+        onView(withText("5h45")).inRoot(isPlatformPopup()).perform(click());
+        onView(withId(R.id.scroll_view)).perform(swipeUp());
+        onView(withId(R.id.meeting_room_input)).perform(click());
+        onView(withText("102")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.create_btn)).perform(click());
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
     }
 
     @Test
     public void meetingList_deleteAction_shouldDeleteItem() {
-        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
         meetingList_createAction_shouldCreateItem();
+        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
         pressBack();
         onView(withId(R.id.delete_btn)).perform(click());
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(0)));
     }
 
+    @Test
+    public void meetingList_filterMeetings_shouldReturnOnlyFilteredMeeting() {
+        meetingList_createAction_shouldCreateItem();
+        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        onView(withText("Filtrer les Réunions par Date")).perform(click());
+        onView(withText("OK")).perform(click());
+        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        onView(withText("Filtrer les Réunions par Salle")).perform(click());
+        onView(withText("105")).perform(click());
+        onView(withText("OK")).perform(click());
+        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(0)));
+        openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        onView(withText("Afficher toutes les Réunions")).perform(click());
+        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
+    }
 
 }
