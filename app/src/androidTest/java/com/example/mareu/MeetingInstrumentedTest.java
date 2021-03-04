@@ -73,7 +73,7 @@ public class MeetingInstrumentedTest {
     }
 
     @Test
-    public void meetingList_createAction_shouldCreateItem() {
+    public void meetingList_createAction_shouldCreateAndDisplayItem() {
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(0)));
         onView(ViewMatchers.withId(R.id.activity_main));
         onView(ViewMatchers.withId(R.id.fab)).perform(click());
@@ -89,6 +89,7 @@ public class MeetingInstrumentedTest {
         onView(withText("102")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.create_btn)).perform(click());
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
+        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(withText("meeting1")));
     }
 
     @Test
@@ -101,7 +102,7 @@ public class MeetingInstrumentedTest {
 
     @Test
     public void meetingList_filterMeetings_shouldReturnOnlyFilteredMeeting() {
-        meetingList_createAction_shouldCreateItem();
+        meetingList_createAction_shouldCreateAndDisplayItem();
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getInstrumentation().getTargetContext());
         onView(withText("Filtrer les Réunions par Date")).perform(click());
