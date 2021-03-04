@@ -8,4 +8,5 @@
     <dimen name="input_padding">25dp</dimen>
     <dimen name="create_btn_padding">50dp</dimen>
     <dimen name="padding_top_rv">55dp</dimen>
+    <dimen name="info_text_size">15sp</dimen>
 </resources>
