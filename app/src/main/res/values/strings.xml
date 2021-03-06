@@ -5,19 +5,23 @@
     <string name="get_meetings">Afficher toutes les Réunions</string>
     <string name="dialog_title">Choisissez la Salle</string>
     <string name="cancel_dialog">ANNULER</string>
-    <string name="OK">OK</string>
+    <string name="ok">OK</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="filter_by_date_toast">Voici les Réunions ayant Lieu le </string>
+    <string name="filter_by_room_toast">Voici les Réunions ayant lieu en Salle </string>
+    <string name="no_filter_toast">Voici toutes les Réunions disponibles</string>
 
-    <string name="CreateMeeting">Validez pour créer votre réunion</string>
-    <string name="Informations">Name - Hour - Room</string>
-    <string name="Participants">Participants</string>
-    <string name="CreateRoom">Séléctionnez votre Salle de Réunion</string>
-    <string name="CreateName">Nommez votre Réunion</string>
-    <string name="CreateHour">Séléctionnez le Créneau de votre Réunion</string>
-    <string name="CreateParticipants">Séléctionnez les Participants</string>
+    <string name="create_meeting">Validez pour créer votre réunion</string>
+    <string name="informations">Name - Hour - Room</string>
+    <string name="participants">Participants</string>
+    <string name="create_room">Séléctionnez votre Salle de Réunion</string>
+    <string name="create_name">Nommez votre Réunion</string>
+    <string name="create_hour">Séléctionnez le Créneau de votre Réunion</string>
+    <string name="create_participants">Séléctionnez les Participants</string>
     <string name="create_date">Séléctionnez la Date de votre Réunion</string>
+    <string name="create_meeting_toast">Votre Réunion a bien été créée !</string>
 </resources>

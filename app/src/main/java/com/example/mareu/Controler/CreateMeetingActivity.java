@@ -17,6 +17,7 @@ import android.widget.MultiAutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.mareu.Model.Meeting;
+import com.example.mareu.R;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.DI;
 import com.example.mareu.databinding.ActivityCreateMeetingBinding;
@@ -97,7 +98,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 meetingDate.getText().toString()
         );
         mApiService.createMeeting(meeting);
-        Toast.makeText(this, "Votre Réunion a bien été créée !", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.create_meeting_toast), Toast.LENGTH_SHORT).show();
         finish();
     }
 

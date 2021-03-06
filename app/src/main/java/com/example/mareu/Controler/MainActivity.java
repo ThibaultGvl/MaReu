@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        //mRecyclerViewAdapter.getFilterMeetings(mRecyclerViewAdapter.getMeetings());
         //noinspection SimplifiableIfStatement
         if (id == R.id.filter_date) {
             return true;
@@ -114,11 +113,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {}
                 })
-                .setPositiveButton(getResources().getText(R.string.OK), new DialogInterface.OnClickListener() {
+                .setPositiveButton(getResources().getText(R.string.ok), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         returnResult(apiService.getMeetingsByRoom(RoomPosition));
-                        Toast.makeText(getBaseContext(), "Voici les Réunions ayant lieu en Salle " + RoomPosition, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getString(R.string.filter_by_room_toast) + RoomPosition, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setSingleChoiceItems(mRooms, CheckedItem, new DialogInterface.OnClickListener() {
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
                 String dateToShow = dayOfMonth + "/" + (month+1)+ "/" + year;
-                Toast.makeText(getBaseContext(), "Voici les Réunions ayant Lieu le " + dateToShow, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getString(R.string.filter_by_date_toast) + dateToShow, Toast.LENGTH_SHORT).show();
                 returnResult(apiService.getMeetingsByDate(dateToShow));
             }
         },year, month, dayOfMonth);
@@ -156,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getAllMeetings(MenuItem Item) {
         returnResult(apiService.getMeetings());
+        Toast.makeText(getBaseContext(), getString(R.string.no_filter_toast), Toast.LENGTH_SHORT).show();
     }
 
     public void returnResult (List<Meeting> meetings) {

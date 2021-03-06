@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/CreateName"
+                android:hint="@string/create_name"
                 android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/CreateParticipants"
+                android:hint="@string/create_participants"
                 android:inputType="text"
                 android:completionThreshold="1"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/CreateHour"
+                android:hint="@string/create_hour"
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/CreateRoom"
+            android:hint="@string/create_room"
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:enabled="false"
-            android:text="@string/CreateMeeting"
+            android:text="@string/create_meeting"
             android:layout_marginTop="@dimen/create_btn_padding"
             android:layout_marginBottom="@dimen/create_btn_padding"/>
     </LinearLayout>
