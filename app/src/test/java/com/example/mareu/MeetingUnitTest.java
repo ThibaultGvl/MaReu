@@ -30,10 +30,6 @@ public class MeetingUnitTest {
 
     private Meeting mMeeting0;
 
-    private Meeting mMeeting1;
-
-    private String DatePosition;
-
     @Before
     public void setUp() {
         mService = DI.getNewInstanceApiService();
