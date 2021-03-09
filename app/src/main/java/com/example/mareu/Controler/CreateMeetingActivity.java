@@ -51,8 +51,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
     private Button createBtn;
 
-    private Configuration config;
-
     private int mColorChoose;
 
 

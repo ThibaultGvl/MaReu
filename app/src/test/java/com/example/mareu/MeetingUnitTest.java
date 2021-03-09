@@ -28,12 +28,11 @@ public class MeetingUnitTest {
 
     private ApiService mService;
 
-    private Meeting mMeeting0;
-
     @Before
     public void setUp() {
         mService = DI.getNewInstanceApiService();
-        mService.createMeeting(mMeeting0);
+        Meeting meeting = new Meeting(0xFEEBEFA4,"6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
+        mService.createMeeting(meeting);
     }
 
     @Test
