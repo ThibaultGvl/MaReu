@@ -124,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         RoomPosition =  mRooms[which];
+                        if(RoomPosition == null){
+                            RoomPosition = "101";
+                        }
                     }
                 });
         materialAlertDialogBuilder.show();

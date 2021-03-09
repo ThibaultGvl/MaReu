@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/meetings_information"
+        android:id="@+id/meeting_informations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/informations"
@@ -39,7 +39,7 @@
         android:text="@string/participants"
         android:maxLines="2"
         android:ellipsize="end"
-        app:layout_constraintTop_toBottomOf="@+id/meetings_information"
+        app:layout_constraintTop_toBottomOf="@+id/meeting_informations"
         app:layout_constraintBottom_toBottomOf="@id/color_meeting"
         app:layout_constraintStart_toEndOf="@+id/color_meeting" />
 

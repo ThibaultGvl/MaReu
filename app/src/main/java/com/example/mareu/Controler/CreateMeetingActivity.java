@@ -1,13 +1,12 @@
 package com.example.mareu.Controler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -21,20 +20,24 @@ import com.example.mareu.R;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.DI;
 import com.example.mareu.databinding.ActivityCreateMeetingBinding;
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Objects;
+
+import top.defaults.colorpicker.ColorPickerPopup;
 
 
 public class CreateMeetingActivity extends AppCompatActivity {
 
     private ApiService mApiService = DI.getMeetingApiService();
 
+    private MainActivity mMainActivity;
+
     private ActivityCreateMeetingBinding binding;
 
-    private TextInputLayout meetingName;
+    private TextInputEditText meetingName;
 
     private MultiAutoCompleteTextView meetingParticipants;
 
@@ -43,6 +46,16 @@ public class CreateMeetingActivity extends AppCompatActivity {
     private AutoCompleteTextView meetingDate;
 
     private AutoCompleteTextView meetingRoom;
+
+    private AutoCompleteTextView meetingColor;
+
+    private Button createBtn;
+
+    private Configuration config;
+
+    private int mColorChoose;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +66,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         meetingRoom = binding.meetingRoomInput;
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, mRooms);
         meetingRoom.setAdapter(adapter);
-        meetingName = binding.meetingNameLyt;
+        meetingName = binding.meetingNameInput;
         meetingParticipants = binding.meetingParticipantsInput;
         meetingParticipants.setThreshold(1);
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mParticipants);
@@ -63,18 +76,16 @@ public class CreateMeetingActivity extends AppCompatActivity {
         ArrayAdapter<String> mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, mHours);
         meetingHour.setAdapter(mAdapter);
         meetingDate = binding.meetingDate;
-        Button createBtn = binding.createBtn;
-        meetingRoom.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {createBtn.setEnabled(s.length() > 0);}
-        });
+        meetingColor = binding.meetingColor;
+        createBtn = binding.createBtn;
+        inputComplete();
         setContentView(view);
+        meetingColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                colorPicker();
+            }
+        });
         meetingDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,8 +102,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
     public void createMeeting() {
         Meeting meeting = new Meeting(
+                mColorChoose,
                 Objects.requireNonNull(meetingHour.getText().toString()),
-                Objects.requireNonNull(meetingName.getEditText()).getText().toString(),
+                Objects.requireNonNull(meetingName.getText()).toString(),
                 Objects.requireNonNull(meetingParticipants.getText().toString()),
                 Objects.requireNonNull(meetingRoom.getText().toString()),
                 meetingDate.getText().toString()
@@ -100,6 +112,37 @@ public class CreateMeetingActivity extends AppCompatActivity {
         mApiService.createMeeting(meeting);
         Toast.makeText(this, getString(R.string.create_meeting_toast), Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void inputComplete() {
+        meetingRoom.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {createBtn.setEnabled(true);}});
+    }
+
+    public void colorPicker() {
+        new ColorPickerPopup.Builder(this)
+                .enableBrightness(true)
+                .enableAlpha(true)
+                .okTitle("OK")
+                .showIndicator(true)
+                .showValue(true)
+                .build()
+                .show(
+                        new ColorPickerPopup.ColorPickerObserver() {
+                            @Override
+                            public void
+                            onColorPicked(int color) {
+                                mColorChoose = color;
+                                meetingColor.setBackgroundColor(mColorChoose);
+                            }
+                        });
     }
 
 

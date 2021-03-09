@@ -5,6 +5,7 @@ import android.widget.DatePicker;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -39,6 +40,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
+import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
@@ -70,6 +72,7 @@ public class MeetingInstrumentedTest {
     @Test
     public void  meetingList_shouldBeEmpty() {
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(0)));
+
     }
 
     @Test
@@ -89,7 +92,7 @@ public class MeetingInstrumentedTest {
         onView(withText("102")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.create_btn)).perform(click());
         onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(hasChildCount(1)));
-        onView(ViewMatchers.withId(R.id.main_recycler_view)).check(matches(withText("meeting1")));
+        onView(ViewMatchers.withId(R.id.meeting_participants)).check(matches(withText("Peach@lamzone.com")));
     }
 
     @Test

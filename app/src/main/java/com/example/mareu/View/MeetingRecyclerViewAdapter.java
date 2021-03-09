@@ -1,9 +1,11 @@
 package com.example.mareu.View;
 
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,15 +70,16 @@ public class MeetingRecyclerViewAdapter extends RecyclerView.Adapter<MeetingRecy
         }
 
         public void updateWithMeeting(@NonNull Meeting meeting){
-            String information  = meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom();
-            mFragmentMeetingItemBinding.meetingsInformation.setText(information);
             if(meeting.getParticipants().endsWith(", ")) {
                 meeting.setParticipants(meeting.getParticipants().substring(0, meeting.getParticipants().length() - 2));
             }
             else if (meeting.getParticipants().endsWith(",")) {
                 meeting.setParticipants(meeting.getParticipants().substring(0, meeting.getParticipants().length() - 1));
             }
+            String information  = meeting.getName() + " - " + meeting.getHour() + " - " + meeting.getRoom();
+            mFragmentMeetingItemBinding.meetingInformations.setText(information);
             mFragmentMeetingItemBinding.meetingParticipants.setText(meeting.getParticipants());
+            mFragmentMeetingItemBinding.colorMeeting.setColorFilter(meeting.getColor());
         }
     }
 }

@@ -1,6 +1,9 @@
 package com.example.mareu.Model;
 
+
 public class Meeting {
+
+    private int Color;
 
     private String Hour;
 
@@ -12,13 +15,18 @@ public class Meeting {
 
     private String Date;
 
-    public Meeting(String Hour, String Name, String Participants, String Room, String Date) {
+    public Meeting(int Color,String Hour, String Name, String Participants, String Room, String Date) {
+        this.Color = Color;
         this.Hour = Hour;
         this.Name = Name;
         this.Participants = Participants;
         this.Room = Room;
         this.Date = Date;
     }
+
+    public int getColor() {return Color;}
+
+    public void setColor(int Color) {this.Color = Color;}
 
     public String getHour() {return Hour;}
 

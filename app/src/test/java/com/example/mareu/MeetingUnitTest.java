@@ -59,9 +59,9 @@ public class MeetingUnitTest {
     @Test
     public void filterMeetingsByDateWithSuccess() {
         deleteMeetingWithSuccess();
-        Meeting meetingToFilter = new Meeting("7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
+        Meeting meetingToFilter = new Meeting(0xFFBFFF5,"7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
         mService.createMeeting(meetingToFilter);
-        Meeting meeting = new Meeting("6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
+        Meeting meeting = new Meeting(0xFEEBEFA4,"6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
         mService.createMeeting(meeting);
         assertTrue(mService.getMeetingsByDate(meetingToFilter.getDate()).contains(meetingToFilter));
     }
@@ -69,9 +69,9 @@ public class MeetingUnitTest {
     @Test
     public void filterMeetingsByRoomWithSuccess() {
         deleteMeetingWithSuccess();
-        Meeting meetingToFilter = new Meeting("7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
+        Meeting meetingToFilter = new Meeting(0xFFBFFF5,"7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
         mService.createMeeting(meetingToFilter);
-        Meeting meeting = new Meeting("6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
+        Meeting meeting = new Meeting(0xFEEBEFA4,"6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
         mService.createMeeting(meeting);
         assertFalse(mService.getMeetingsByRoom(meetingToFilter.getRoom()).contains(meeting));
     }
