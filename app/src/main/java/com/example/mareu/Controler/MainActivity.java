@@ -117,16 +117,13 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         returnResult(apiService.getMeetingsByRoom(RoomPosition));
-                        Toast.makeText(getBaseContext(), getString(R.string.filter_by_room_toast) + RoomPosition, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getBaseContext(), getString(R.string.filter_by_room_toast) + " " + RoomPosition, Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setSingleChoiceItems(mRooms, CheckedItem, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         RoomPosition =  mRooms[which];
-                        if(RoomPosition == null){
-                            RoomPosition = "101";
-                        }
                     }
                 });
         materialAlertDialogBuilder.show();
@@ -141,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
                 String dateToShow = dayOfMonth + "/" + (month+1)+ "/" + year;
-                Toast.makeText(getBaseContext(), getString(R.string.filter_by_date_toast) + dateToShow, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), getString(R.string.filter_by_date_toast) + " " + dateToShow, Toast.LENGTH_SHORT).show();
                 returnResult(apiService.getMeetingsByDate(dateToShow));
             }
         },year, month, dayOfMonth);

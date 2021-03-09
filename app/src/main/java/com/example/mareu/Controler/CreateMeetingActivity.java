@@ -78,6 +78,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         meetingDate = binding.meetingDate;
         meetingColor = binding.meetingColor;
         createBtn = binding.createBtn;
+        mColorChoose = 0xFAAC3CC7;
         inputComplete();
         setContentView(view);
         meetingColor.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +110,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 Objects.requireNonNull(meetingRoom.getText().toString()),
                 meetingDate.getText().toString()
         );
+
         mApiService.createMeeting(meeting);
         Toast.makeText(this, getString(R.string.create_meeting_toast), Toast.LENGTH_SHORT).show();
         finish();
