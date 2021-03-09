@@ -4,8 +4,6 @@
     <string name="filter_room">Filtrer les Réunions par Salle</string>
     <string name="get_meetings">Afficher toutes les Réunions</string>
     <string name="dialog_title">Choisissez la Salle</string>
-    <string name="cancel_dialog">ANNULER</string>
-    <string name="ok">OK</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

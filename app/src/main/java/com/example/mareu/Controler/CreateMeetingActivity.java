@@ -132,7 +132,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
         new ColorPickerPopup.Builder(this)
                 .enableBrightness(true)
                 .enableAlpha(true)
-                .okTitle("OK")
                 .showIndicator(true)
                 .showValue(true)
                 .build()
