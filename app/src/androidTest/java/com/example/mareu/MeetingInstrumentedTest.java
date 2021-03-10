@@ -1,57 +1,32 @@
 package com.example.mareu;
 
-import android.content.Context;
-import android.widget.DatePicker;
-
 import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.contrib.PickerActions;
-import androidx.test.espresso.matcher.RootMatchers;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.example.mareu.Controler.CreateMeetingActivity;
 import com.example.mareu.Controler.MainActivity;
-import com.example.mareu.Model.Meeting;
-import com.example.mareu.Services.ApiService;
-import com.example.mareu.Services.MeetingApiService;
-import com.example.mareu.View.MeetingRecyclerViewAdapter;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.pressBack;
-import static androidx.test.espresso.action.ViewActions.pressImeActionButton;
-import static androidx.test.espresso.action.ViewActions.removeGlobalAssertion;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
-import static androidx.test.espresso.matcher.ViewMatchers.hasSibling;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
-import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withInputType;
-import static androidx.test.espresso.matcher.ViewMatchers.withParentIndex;
-import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.core.IsNull.notNullValue;
-import static org.junit.Assert.*;
+
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -85,7 +60,7 @@ public class MeetingInstrumentedTest {
         onView(withText("Peach@lamzone.com")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.meeting_date)).perform(click());
         onView(withText("OK")).perform(click());
-        onView(withId(R.id.meeting_hour_input)).perform(click());
+        onView(withId(R.id.meeting_hour_input)).perform(scrollTo()).perform(click());
         onView(withText("5h45")).inRoot(isPlatformPopup()).perform(click());
         onView(withId(R.id.scroll_view)).perform(swipeUp());
         onView(withId(R.id.meeting_room_input)).perform(click());

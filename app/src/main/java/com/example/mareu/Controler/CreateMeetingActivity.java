@@ -3,7 +3,6 @@ package com.example.mareu.Controler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,7 +21,6 @@ import com.example.mareu.Services.DI;
 import com.example.mareu.databinding.ActivityCreateMeetingBinding;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -32,8 +30,6 @@ import top.defaults.colorpicker.ColorPickerPopup;
 public class CreateMeetingActivity extends AppCompatActivity {
 
     private ApiService mApiService = DI.getMeetingApiService();
-
-    private MainActivity mMainActivity;
 
     private ActivityCreateMeetingBinding binding;
 

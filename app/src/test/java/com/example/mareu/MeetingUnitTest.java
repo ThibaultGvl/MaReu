@@ -1,17 +1,13 @@
 package com.example.mareu;
 
-import com.example.mareu.Controler.MainActivity;
 import com.example.mareu.Model.Meeting;
 import com.example.mareu.Services.ApiService;
 import com.example.mareu.Services.DI;
-import com.example.mareu.View.MeetingRecyclerViewAdapter;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.junit.rules.ExternalResource;
 
 
 import java.util.List;
@@ -56,22 +52,13 @@ public class MeetingUnitTest {
     }
 
     @Test
-    public void filterMeetingsByDateWithSuccess() {
+    public void filterMeetingsWithSuccess() {
         deleteMeetingWithSuccess();
         Meeting meetingToFilter = new Meeting(0xFFBFFF5,"7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
         mService.createMeeting(meetingToFilter);
-        Meeting meeting = new Meeting(0xFEEBEFA4,"6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
-        mService.createMeeting(meeting);
+        Meeting meeting1 = new Meeting(0xFEEBEFA4,"8h00","meeting1","Mario@lamzone.com, Peach@lamzone.com","109","24/1/2021");
+        mService.createMeeting(meeting1);
         assertTrue(mService.getMeetingsByDate(meetingToFilter.getDate()).contains(meetingToFilter));
-    }
-
-    @Test
-    public void filterMeetingsByRoomWithSuccess() {
-        deleteMeetingWithSuccess();
-        Meeting meetingToFilter = new Meeting(0xFFBFFF5,"7h15","meetingToFilter","Mario@lamzone.com, Peach@lamzone.com","105","28/2/2021");
-        mService.createMeeting(meetingToFilter);
-        Meeting meeting = new Meeting(0xFEEBEFA4,"6h30","meeting","Mario@lamzone.com, Peach@lamzone.com","108","24/2/2021");
-        mService.createMeeting(meeting);
-        assertFalse(mService.getMeetingsByRoom(meetingToFilter.getRoom()).contains(meeting));
+        assertFalse(mService.getMeetingsByRoom(meetingToFilter.getRoom()).contains(meeting1));
     }
 }

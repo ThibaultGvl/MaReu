@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ma Réu</string>
+    <string name="app_name">Ma réu</string>
     <string name="filter_hour">Filtrer les Réunions par Date</string>
     <string name="filter_room">Filtrer les Réunions par Salle</string>
     <string name="get_meetings">Afficher toutes les Réunions</string>

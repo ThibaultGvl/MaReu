@@ -1,7 +1,6 @@
 package com.example.mareu.Services;
 
 import com.example.mareu.Model.Meeting;
-import com.example.mareu.View.MeetingRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

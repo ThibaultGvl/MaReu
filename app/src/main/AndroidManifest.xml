@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaRéu">
-        <activity android:name=".Controler.CreateMeetingActivity"></activity>
+        <activity android:name=".Controler.CreateMeetingActivity" />
         <activity
             android:name=".Controler.MainActivity"
             android:label="@string/app_name"
